@@ -4,11 +4,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import presentation.MainScreen
+import theme.colorScheme
+import theme.shapes
 
 @Composable
 @Preview
 fun App() {
-    MaterialTheme {
+    MaterialTheme(
+        shapes = shapes,
+        colors = colorScheme
+    ) {
         MainScreen(modifier = Modifier.fillMaxSize())
     }
 }

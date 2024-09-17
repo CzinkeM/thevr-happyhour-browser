@@ -1,11 +1,13 @@
 package presentation
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
@@ -18,7 +20,9 @@ fun TopologicalBackground(
     modifier: Modifier = Modifier
 ) {
     Image(
-        modifier = modifier.blur(4.dp),
+        modifier = modifier
+            .blur(4.dp)
+            .background(Black),
         painter = painterResource(resource = Res.drawable.topological_background),
         contentDescription = null,
         contentScale = ContentScale.FillBounds,

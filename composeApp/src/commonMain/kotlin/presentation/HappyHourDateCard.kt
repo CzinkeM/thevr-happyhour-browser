@@ -8,21 +8,21 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Face
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.painterResource
+import thevr_happyhour_browser.composeapp.generated.resources.Res
+import thevr_happyhour_browser.composeapp.generated.resources.icon_calendar
 
 @Composable
 fun HappyHourDateCard(
     modifier: Modifier = Modifier,
     dateString: String,
 ) {
-    // TODO: Add coloring
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(8.dp),
@@ -32,8 +32,7 @@ fun HappyHourDateCard(
         ) {
             Icon(
                 modifier = Modifier.scale(.9f).align(CenterVertically),
-                // TODO: Change icon
-                imageVector = Icons.Default.Face,
+                painter = painterResource(resource = Res.drawable.icon_calendar),
                 contentDescription = null,
             )
             Spacer(modifier = Modifier.width(2.dp))
