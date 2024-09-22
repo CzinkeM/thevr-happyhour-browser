@@ -34,6 +34,10 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.ktor.client.okhttp)
+        }
+        nativeMain.dependencies {
+            implementation(libs.ktor.client.darwin)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -51,6 +55,8 @@ kotlin {
             implementation(libs.navigator.screenModel)
             implementation(libs.koin.core)
             implementation(libs.koin.voyager)
+
+            implementation(libs.bundles.ktor)
         }
     }
 }

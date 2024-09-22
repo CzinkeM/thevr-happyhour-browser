@@ -16,6 +16,7 @@ kotlin = "2.0.0"
 voyager = "1.0.0"
 kotlinx-serialization-json = "1.6.1"
 koinVersion = "3.5.3"
+ktor = "2.3.12"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -30,12 +31,20 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 compose-material-icons-extended = {module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "compose-plugin"}
 kotlinx-serialization-json = {module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json"}
+
 navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager"}
 navigator-tabs = { module = "cafe.adriel.voyager:voyager-tab-navigator", version.ref = "voyager"}
 navigator-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyager"}
 navigator-screenModel = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyager"}
 koin-voyager = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyager"}
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinVersion"}
+
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor"}
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor"}
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor"}
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor"}
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor"}
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor"}
 
 
 [plugins]
@@ -45,3 +54,11 @@ jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinSerialization = {id = "org.jetbrains.kotlin.plugin.serialization", version.ref="kotlin"}
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+
+[bundles]
+ktor = [
+    "ktor-client-core",
+    "ktor-client-content-negotiation",
+    "ktor-client-logging",
+    "ktor-serialization-kotlinx-json"
+]
