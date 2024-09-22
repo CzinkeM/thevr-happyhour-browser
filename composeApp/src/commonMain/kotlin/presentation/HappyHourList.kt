@@ -16,12 +16,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
+sealed interface HappyHourListEvent {
+    data object OnSearchFabClick: HappyHourListEvent
+    data class  OnHappyHourCardClick(val id: String): HappyHourListEvent
+}
+
 @Composable
 fun HappyHourList(
     modifier: Modifier = Modifier,
     state: HappyHourListState,
-    onHappyHourCardClick: (HappyHourCardState) -> Unit,
-    onSearchFabClick: () -> Unit,
+    onEvent: (HappyHourListEvent) -> Unit,
+//    onHappyHourCardClick: (HappyHourCardState) -> Unit,
+//    onSearchFabClick: () -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -43,7 +49,11 @@ fun HappyHourList(
                         .padding(horizontal = 16.dp)
                         .padding(bottom = 8.dp),
                     state = it,
-                    onCardClick = { onHappyHourCardClick(it) }
+                    onEvent = { event ->
+                        when(event) {
+                            is HappyHourCardEvent.OnCardClick -> onEvent(HappyHourListEvent.OnHappyHourCardClick(event.id))
+                        }
+                    },
                 )
             }
         }
@@ -54,7 +64,9 @@ fun HappyHourList(
                 .padding(16.dp),
             shape = MaterialTheme.shapes.medium,
             backgroundColor = MaterialTheme.colors.primary,
-            onClick = onSearchFabClick,
+            onClick = {
+                onEvent(HappyHourListEvent.OnSearchFabClick)
+            },
         ) {
             Icon(imageVector = Icons.Default.Search, contentDescription = null)
         }
@@ -63,105 +75,4 @@ fun HappyHourList(
 
 data class HappyHourListState(
     val happyHourList: List<HappyHourCardState>
-) {
-    companion object {
-        val test = listOf(
-            HappyHourCardState(
-                id = "1",
-                title = "Első",
-                part = 1,
-                publishDate = "2024-02-31"
-            ),
-            HappyHourCardState(
-                id = "1",
-                title = "Első",
-                part = 1,
-                publishDate = "2024-02-31"
-            ),
-            HappyHourCardState(
-                id = "1",
-                title = "Első",
-                part = 1,
-                publishDate = "2024-02-31"
-            ),
-            HappyHourCardState(
-                id = "1",
-                title = "Első",
-                part = 1,
-                publishDate = "2024-02-31"
-            ),
-            HappyHourCardState(
-                id = "1",
-                title = "Első",
-                part = 1,
-                publishDate = "2024-02-31"
-            ),
-            HappyHourCardState(
-                id = "1",
-                title = "Első",
-                part = 1,
-                publishDate = "2024-02-31"
-            ),
-            HappyHourCardState(
-                id = "1",
-                title = "Első",
-                part = 1,
-                publishDate = "2024-02-31"
-            ),
-            HappyHourCardState(
-                id = "1",
-                title = "Első",
-                part = 1,
-                publishDate = "2024-02-31"
-            ),
-            HappyHourCardState(
-                id = "1",
-                title = "Első",
-                part = 1,
-                publishDate = "2024-02-31"
-            ),
-            HappyHourCardState(
-                id = "1",
-                title = "Első",
-                part = 1,
-                publishDate = "2024-02-31"
-            ),
-            HappyHourCardState(
-                id = "1",
-                title = "Első",
-                part = 1,
-                publishDate = "2024-02-31"
-            ),
-            HappyHourCardState(
-                id = "1",
-                title = "Első",
-                part = 1,
-                publishDate = "2024-02-31"
-            ),
-            HappyHourCardState(
-                id = "1",
-                title = "Első",
-                part = 1,
-                publishDate = "2024-02-31"
-            ),
-            HappyHourCardState(
-                id = "1",
-                title = "Első",
-                part = 1,
-                publishDate = "2024-02-31"
-            ),
-            HappyHourCardState(
-                id = "1",
-                title = "Első",
-                part = 1,
-                publishDate = "2024-02-31"
-            ),
-            HappyHourCardState(
-                id = "1",
-                title = "Első",
-                part = 1,
-                publishDate = "2024-02-31"
-            ),
-        )
-    }
-}
+)

@@ -15,16 +15,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 
+data class HappyHourCardState(
+    val id: String,
+    val title: String,
+    val part: Int,
+    val publishDate: String
+)
+
+sealed interface HappyHourCardEvent {
+    data class OnCardClick(val id: String): HappyHourCardEvent
+}
+
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun HappyHourCard(
     modifier: Modifier = Modifier,
     state: HappyHourCardState,
-    onCardClick: () -> Unit,
+    onEvent: (HappyHourCardEvent) -> Unit,
 ) {
     Card(
         modifier = modifier,
-        onClick = onCardClick,
+        onClick = { onEvent(HappyHourCardEvent.OnCardClick(state.id)) },
         shape = RoundedCornerShape(16.dp),
         backgroundColor = MaterialTheme.colors.surface.copy(.65f),
     ) {
@@ -50,9 +61,3 @@ fun HappyHourCard(
     }
 }
 
-data class HappyHourCardState(
-    val id: String,
-    val title: String,
-    val part: Int,
-    val publishDate: String
-)
