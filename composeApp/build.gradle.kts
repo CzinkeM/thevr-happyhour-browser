@@ -47,7 +47,9 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(compose.materialIconsExtended)
+
             implementation(libs.kotlinx.serialization.json)
+            implementation(libs.kotlinx.dateTime)
 
             implementation(libs.navigator)
             implementation(libs.navigator.tabs)

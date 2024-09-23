@@ -17,6 +17,7 @@ voyager = "1.0.0"
 kotlinx-serialization-json = "1.6.1"
 koinVersion = "3.5.3"
 ktor = "2.3.12"
+kotlin-dateTime = "0.4.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -30,7 +31,10 @@ androidx-material = { group = "com.google.android.material", name = "material", 
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 compose-material-icons-extended = {module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "compose-plugin"}
+
 kotlinx-serialization-json = {module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json"}
+kotlinx-dateTime = {module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlin-dateTime"}
+kotlinx-dateTime-format = {module = "org.jetbrains.kotlinx:kotlinx-datetime-format", version.ref = "kotlin-dateTime"}
 
 navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager"}
 navigator-tabs = { module = "cafe.adriel.voyager:voyager-tab-navigator", version.ref = "voyager"}
