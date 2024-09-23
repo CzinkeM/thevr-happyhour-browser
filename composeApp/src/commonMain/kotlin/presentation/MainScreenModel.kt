@@ -7,9 +7,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import networking.HappyHourHttpClient
 
 class MainScreenModel(
-    private val repository: HappyHourRepository
+    private val repository: HappyHourRepository,
+    private val httpClient: HappyHourHttpClient,
 ): ScreenModel {
 
     private val _happyHours = MutableStateFlow(emptyList<HappyHourCardState>())
@@ -20,6 +22,9 @@ class MainScreenModel(
             _happyHours.update {
                 repository.getHappyHourList()
             }
+
+            val hhPage = httpClient.loadHappyHourPage(8)
+            println("HappyHour:$hhPage")
         }
     }
 
