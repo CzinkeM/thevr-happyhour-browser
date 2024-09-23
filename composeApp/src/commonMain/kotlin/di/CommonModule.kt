@@ -4,8 +4,7 @@ import data.HappyHourRepository
 import org.koin.dsl.module
 import presentation.MainScreenModel
 
-val appModule = module {
-    factory { MainScreenModel(get()) }
-
+val commonModule = module {
+    factory { MainScreenModel(get(),get()) }
     single { HappyHourRepository() }
 }
