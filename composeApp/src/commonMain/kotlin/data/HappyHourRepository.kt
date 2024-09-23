@@ -1,101 +1,115 @@
 package data
 
+import domain.mapper.toHappyHourVideoList
+import domain.model.HappyHourVideo
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.withContext
+import networking.HappyHourHttpClient
 import presentation.HappyHourCardState
 
-class HappyHourRepository {
-    fun getHappyHourList() = listOf(
+class HappyHourRepository(
+    private val happyHourHttpClient: HappyHourHttpClient
+) {
+    suspend fun getHappyHoursByPage(page: Int, dispatcher: CoroutineDispatcher = Dispatchers.IO): List<HappyHourVideo> {
+        return withContext(dispatcher) {
+            happyHourHttpClient.loadHappyHourPage(page).toHappyHourVideoList()
+        }
+    }
+    fun testHappyHours() = listOf(
         HappyHourCardState(
-            id = "1",
+            id = 1,
             title = "Első",
             part = 1,
             publishDate = "2024-02-31"
         ),
         HappyHourCardState(
-            id = "1",
+            id = 2,
             title = "Első",
             part = 1,
             publishDate = "2024-02-31"
         ),
         HappyHourCardState(
-            id = "1",
+            id = 3,
             title = "Első",
             part = 1,
             publishDate = "2024-02-31"
         ),
         HappyHourCardState(
-            id = "1",
+            id = 4,
             title = "Első",
             part = 1,
             publishDate = "2024-02-31"
         ),
         HappyHourCardState(
-            id = "1",
+            id = 5,
             title = "Első",
             part = 1,
             publishDate = "2024-02-31"
         ),
         HappyHourCardState(
-            id = "1",
+            id = 6,
             title = "Első",
             part = 1,
             publishDate = "2024-02-31"
         ),
         HappyHourCardState(
-            id = "1",
+            id = 7,
             title = "Első",
             part = 1,
             publishDate = "2024-02-31"
         ),
         HappyHourCardState(
-            id = "1",
+            id = 8,
             title = "Első",
             part = 1,
             publishDate = "2024-02-31"
         ),
         HappyHourCardState(
-            id = "1",
+            id = 9,
             title = "Első",
             part = 1,
             publishDate = "2024-02-31"
         ),
         HappyHourCardState(
-            id = "1",
+            id = 10,
             title = "Első",
             part = 1,
             publishDate = "2024-02-31"
         ),
         HappyHourCardState(
-            id = "1",
+            id = 11,
             title = "Első",
             part = 1,
             publishDate = "2024-02-31"
         ),
         HappyHourCardState(
-            id = "1",
+            id = 12,
             title = "Első",
             part = 1,
             publishDate = "2024-02-31"
         ),
         HappyHourCardState(
-            id = "1",
+            id = 13,
             title = "Első",
             part = 1,
             publishDate = "2024-02-31"
         ),
         HappyHourCardState(
-            id = "1",
+            id = 14,
             title = "Első",
             part = 1,
             publishDate = "2024-02-31"
         ),
         HappyHourCardState(
-            id = "1",
+            id = 15,
             title = "Első",
             part = 1,
             publishDate = "2024-02-31"
         ),
         HappyHourCardState(
-            id = "1",
+            id = 16,
             title = "Első",
             part = 1,
             publishDate = "2024-02-31"

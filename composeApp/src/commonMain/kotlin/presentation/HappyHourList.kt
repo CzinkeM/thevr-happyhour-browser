@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 
 sealed interface HappyHourListEvent {
     data object OnSearchFabClick: HappyHourListEvent
-    data class  OnHappyHourCardClick(val id: String): HappyHourListEvent
+    data class  OnHappyHourCardClick(val id: Int): HappyHourListEvent
 }
 
 @Composable

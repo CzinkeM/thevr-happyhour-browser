@@ -16,14 +16,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 
 data class HappyHourCardState(
-    val id: String,
+    val id: Int,
     val title: String,
     val part: Int,
     val publishDate: String
 )
 
 sealed interface HappyHourCardEvent {
-    data class OnCardClick(val id: String): HappyHourCardEvent
+    data class OnCardClick(val id: Int): HappyHourCardEvent
 }
 
 @OptIn(ExperimentalMaterialApi::class)

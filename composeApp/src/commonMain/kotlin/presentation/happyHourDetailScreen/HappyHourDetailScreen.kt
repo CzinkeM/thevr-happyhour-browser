@@ -8,7 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 
-data class HappyHourDetailScreen(val hhId: String): Screen {
+data class HappyHourDetailScreen(val hhId: Int): Screen {
 
     @Composable
     override fun Content() {

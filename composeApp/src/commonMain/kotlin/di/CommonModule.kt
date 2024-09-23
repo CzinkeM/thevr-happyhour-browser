@@ -5,6 +5,6 @@ import org.koin.dsl.module
 import presentation.MainScreenModel
 
 val commonModule = module {
-    factory { MainScreenModel(get(),get()) }
-    single { HappyHourRepository() }
+    factory { MainScreenModel(get()) }
+    single { HappyHourRepository(get()) }
 }
