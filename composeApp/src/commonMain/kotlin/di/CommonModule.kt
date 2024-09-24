@@ -2,9 +2,9 @@ package di
 
 import data.HappyHourRepository
 import org.koin.dsl.module
-import presentation.MainScreenModel
+import presentation.HappyHourListScreen.HappyHourListScreenModel
 
 val commonModule = module {
-    factory { MainScreenModel(get()) }
+    factory { HappyHourListScreenModel(get()) }
     single { HappyHourRepository(get()) }
 }

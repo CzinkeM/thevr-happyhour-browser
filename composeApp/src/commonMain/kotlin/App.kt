@@ -2,7 +2,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.navigator.Navigator
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import presentation.MainScreen
+import presentation.HappyHourListScreen.HappyHourListScreen
 import theme.colorScheme
 import theme.shapes
 
@@ -13,6 +13,6 @@ fun App() {
         shapes = shapes,
         colors = colorScheme
     ) {
-        Navigator(MainScreen())
+        Navigator(HappyHourListScreen())
     }
 }

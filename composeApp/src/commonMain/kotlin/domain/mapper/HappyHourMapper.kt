@@ -7,7 +7,7 @@ import domain.model.HappyHourVideo
 import kotlinx.datetime.LocalDateTime
 import networking.dto.HappyHourPageDto
 import networking.dto.HappyHourVideoDto
-import presentation.HappyHourCardState
+import presentation.components.HappyHourCardState
 
 fun HappyHourPageDto.toHappyHourVideoList(): List<HappyHourVideo> {
     return this.hhVideos.map { dto -> dto.toHappyHourVideo() }

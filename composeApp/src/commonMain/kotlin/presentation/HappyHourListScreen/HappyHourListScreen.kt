@@ -1,4 +1,4 @@
-package presentation
+package presentation.HappyHourListScreen
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
@@ -10,13 +10,16 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.getNavigatorScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import presentation.components.HappyHourList
+import presentation.components.HappyHourListEvent
+import presentation.components.HappyHourListState
 import presentation.happyHourDetailScreen.HappyHourDetailScreen
 
-class MainScreen: Screen {
+class HappyHourListScreen: Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        val screenModel = navigator.getNavigatorScreenModel<MainScreenModel>()
+        val screenModel = navigator.getNavigatorScreenModel<HappyHourListScreenModel>()
 
         val happyHours by screenModel.happyHours.collectAsState()
 

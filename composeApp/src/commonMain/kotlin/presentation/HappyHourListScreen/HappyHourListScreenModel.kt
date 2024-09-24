@@ -1,4 +1,4 @@
-package presentation
+package presentation.HappyHourListScreen
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
-class MainScreenModel(
+class HappyHourListScreenModel(
     private val repository: HappyHourRepository,
 ): ScreenModel {
 
