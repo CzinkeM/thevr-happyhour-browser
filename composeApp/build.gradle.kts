@@ -51,17 +51,16 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlinx.dateTime)
 
-            implementation(libs.navigator)
-            implementation(libs.navigator.tabs)
-            implementation(libs.navigator.transitions)
-            implementation(libs.navigator.screenModel)
-
-            implementation(libs.koin.core)
-            implementation(libs.koin.voyager)
+            implementation(libs.voyager.navigator)
+            implementation(libs.voyager.navigator.tabs)
+            implementation(libs.voyager.transitions)
+            implementation(libs.voyager.screenModel)
+            implementation(libs.voyager.koin)
 
             implementation(libs.landscapist.coil)
 
             implementation(libs.bundles.ktor)
+            implementation(libs.bundles.koin)
         }
     }
 }

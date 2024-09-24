@@ -15,9 +15,9 @@ junit = "4.13.2"
 kotlin = "2.0.0"
 voyager = "1.0.0"
 kotlinx-serialization-json = "1.6.1"
-koinVersion = "3.5.3"
 ktor = "2.3.12"
 kotlin-dateTime = "0.4.1"
+koin-bom = "4.0.0"
 landscapistVersion = "2.3.8"
 
 [libraries]
@@ -36,12 +36,14 @@ compose-material-icons-extended = {module = "org.jetbrains.compose.material:mate
 kotlinx-serialization-json = {module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json"}
 kotlinx-dateTime = {module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlin-dateTime"}
 
-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager"}
-navigator-tabs = { module = "cafe.adriel.voyager:voyager-tab-navigator", version.ref = "voyager"}
-navigator-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyager"}
-navigator-screenModel = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyager"}
-koin-voyager = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyager"}
-koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinVersion"}
+voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager"}
+voyager-navigator-tabs = { module = "cafe.adriel.voyager:voyager-tab-navigator", version.ref = "voyager"}
+voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyager"}
+voyager-screenModel = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyager"}
+voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyager"}
+
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin-bom"}
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin-bom"}
 
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor"}
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor"}
@@ -65,4 +67,8 @@ ktor = [
     "ktor-client-core",
     "ktor-client-content-negotiation",
     "ktor-serialization-kotlinx-json"
+]
+koin = [
+    "koin-core",
+    "koin-compose"
 ]
