@@ -7,5 +7,6 @@ import presentation.happyHourDetailScreen.HappyHourDetailScreenModel
 
 val commonModule = module {
     factory { HappyHourListScreenModel(get()) }
+    factory { HappyHourDetailScreenModel(get()) }
     single { HappyHourRepository(get()) }
 }
