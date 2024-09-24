@@ -58,6 +58,8 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.voyager)
 
+            implementation(libs.coil)
+
             implementation(libs.bundles.ktor)
         }
     }
