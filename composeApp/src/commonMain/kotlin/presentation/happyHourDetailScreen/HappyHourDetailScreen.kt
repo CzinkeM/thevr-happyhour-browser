@@ -48,7 +48,9 @@ import com.skydoves.landscapist.coil3.CoilImage
 import networking.HappyHourUrlProvider
 import presentation.components.HappyHourDateCard
 import presentation.components.HappyHourVideoChapterCard
+import presentation.components.SpotifyCard
 import presentation.components.TopologicalBackground
+import presentation.components.YoutubeCard
 
 data class HappyHourDetailScreen(val happyHourId: Int): Screen {
     @OptIn(ExperimentalMaterialApi::class)
@@ -145,6 +147,14 @@ data class HappyHourDetailScreen(val happyHourId: Int): Screen {
                                 }
                             }
                             item {
+                                Column {
+                                    YoutubeCard(
+                                        videoId = s.model.videoId
+                                    )
+                                    SpotifyCard()
+                                }
+                            }
+                            item {
                                 var isChaptersExpanded by remember {
                                     mutableStateOf(false)
                                 }
@@ -218,6 +228,7 @@ data class HappyHourDetailScreen(val happyHourId: Int): Screen {
                                             Column(
                                                 modifier = Modifier.fillMaxWidth()
                                             ) {
+
                                                 s.model.chapters.forEach { chapter ->
                                                     HappyHourVideoChapterCard(
                                                         modifier = Modifier.padding(horizontal = 8.dp),

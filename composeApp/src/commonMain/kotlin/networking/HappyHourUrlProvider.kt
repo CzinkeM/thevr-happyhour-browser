@@ -13,8 +13,12 @@ object HappyHourUrlProvider {
         return thumbnailEndpointTemplate.replace("%s",videoId)
     }
 
+    fun youtubeVideoUrl(videoId: String): String {
+        return "$YOUTUBE_BASE_URL?v=$videoId"
+    }
+
     fun youtubeChapterUrl(timestampString: String, videoId: String): String {
         val timeInDecimals = TimestampProvider.timestampStringToSecond(timestampString)
-        return "$YOUTUBE_BASE_URL/v=$videoId&t=${timeInDecimals}s"
+        return "$YOUTUBE_BASE_URL?v=$videoId&t=${timeInDecimals}s"
     }
 }
