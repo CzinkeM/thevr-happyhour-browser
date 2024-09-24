@@ -18,7 +18,7 @@ class HappyHourHttpClient(
 ) {
     suspend fun loadHappyHourPage(targetPage: String): HappyHourPageDto {
         val result = try {
-            client.post(urlString = HappyHourUrl.HAPPY_HOURS) {
+            client.post(urlString = HappyHourUrlProvider.HAPPY_HOURS) {
                 contentType(ContentType.MultiPart.FormData)
                 setBody(
                     FormDataContent(
