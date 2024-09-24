@@ -15,7 +15,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import domain.AppLauncher
 import domain.model.HappyHourChapter
+import org.koin.compose.koinInject
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -23,11 +25,11 @@ fun HappyHourVideoChapterCard(
     modifier: Modifier = Modifier,
     state: HappyHourChapter,
 ) {
-
+    val appLauncher = koinInject<AppLauncher>()
     Card(
         modifier = modifier,
         onClick = {
-            // TODO: Open youtube app
+            appLauncher.launchApp(uri = state.uri)
         },
         shape = RoundedCornerShape(8.dp),
         backgroundColor = MaterialTheme.colors.primaryVariant,
