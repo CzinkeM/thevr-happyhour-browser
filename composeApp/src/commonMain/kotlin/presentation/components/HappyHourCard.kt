@@ -3,6 +3,7 @@ package presentation.components
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
@@ -13,6 +14,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 
@@ -44,13 +46,16 @@ fun HappyHourCard(
             modifier = Modifier.padding(8.dp),
         ) {
             HappyHourPartNumber(
-                modifier = Modifier.widthIn(max = 54.dp),
+                modifier = Modifier
+                    .widthIn(max = 54.dp)
+                    .fillMaxHeight(),
                 partNumber = state.part
             )
             Spacer(modifier = Modifier.width(16.dp))
             Column {
                 Text(
                     text = state.title,
+                    fontWeight = FontWeight.SemiBold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )

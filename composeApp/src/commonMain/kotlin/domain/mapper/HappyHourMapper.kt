@@ -1,10 +1,11 @@
 package domain.mapper
 
-import domain.YoutubeAddressAssembler
+import domain.HappyHourTitleFormatter
 import domain.isNullOrMinus
 import domain.model.HappyHourChapter
 import domain.model.HappyHourVideo
 import kotlinx.datetime.LocalDateTime
+import networking.HappyHourUrlProvider
 import networking.dto.HappyHourPageDto
 import networking.dto.HappyHourVideoDto
 import presentation.components.HappyHourCardState
@@ -35,8 +36,8 @@ fun HappyHourVideoDto.getChapterList(): List<HappyHourChapter> {
             return emptyList()
         }
         val hhChapters = mutableListOf<HappyHourChapter>()
-        val timestampStrings = this.timeStampText.split("\n")
-        if(timestampStrings.contains("\n")) {
+        if(this.timeStampText.contains("\n")) {
+            val timestampStrings = this.timeStampText.split("\n")
             timestampStrings.forEach {
                 val chapterString = it.removeSuffix("\r")
                 val chapterParts = chapterString.split("-")
@@ -51,7 +52,7 @@ fun HappyHourVideoDto.getChapterList(): List<HappyHourChapter> {
                             HappyHourChapter(
                                 title = title.trim(),
                                 timeStamp = timestamp,
-                                uri = YoutubeAddressAssembler.assemble(timestampString = timestamp, videoId = this.videoId)
+                                uri = HappyHourUrlProvider.youtubeChapterUrl(timestampString = timestamp, videoId = this.videoId)
                             )
                         )
                     }
@@ -61,7 +62,7 @@ fun HappyHourVideoDto.getChapterList(): List<HappyHourChapter> {
                             HappyHourChapter(
                                 title = chapterParts[1],
                                 timeStamp = chapterParts[0],
-                                uri = YoutubeAddressAssembler.assemble(timestampString = chapterParts[0], videoId = videoId)
+                                uri = HappyHourUrlProvider.youtubeChapterUrl(timestampString = chapterParts[0], videoId = videoId)
                             )
                         )
                     }
@@ -71,7 +72,7 @@ fun HappyHourVideoDto.getChapterList(): List<HappyHourChapter> {
                         HappyHourChapter(
                             title = assembledTitle,
                             timeStamp = chapterParts[0],
-                            uri = YoutubeAddressAssembler.assemble(timestampString = chapterParts[0], videoId = videoId)
+                            uri = HappyHourUrlProvider.youtubeChapterUrl(timestampString = chapterParts[0], videoId = videoId)
                         )
                     }
                     else -> {
@@ -91,7 +92,7 @@ fun HappyHourVideoDto.getChapterList(): List<HappyHourChapter> {
 fun HappyHourVideo.toHappyHourCardState(): HappyHourCardState {
     return HappyHourCardState(
         id = id,
-        title = title,
+        title = HappyHourTitleFormatter.format(title),
         part = part,
         publishDate = publishedDate.toString()
     )

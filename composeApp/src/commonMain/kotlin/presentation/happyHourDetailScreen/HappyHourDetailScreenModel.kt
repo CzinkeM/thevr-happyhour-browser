@@ -3,6 +3,7 @@ package presentation.happyHourDetailScreen
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import data.HappyHourRepository
+import domain.HappyHourTitleFormatter
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
@@ -23,13 +24,15 @@ class HappyHourDetailScreenModel(
         if (selectedHappyHour == null) {
             HappyHourDetailScreenState.Loading
         }else{
+            println("${selectedHappyHour.part}: ${selectedHappyHour.chapters.size}")
             HappyHourDetailScreenState.Loaded(
                 model = HappyHourDetailScreenStateModel(
                     id = selectedHappyHour.id,
-                    title = selectedHappyHour.title,
+                    title = HappyHourTitleFormatter.format(selectedHappyHour.title),
                     part = selectedHappyHour.part,
                     dateString = selectedHappyHour.publishedDate.toString(),
                     videoId = selectedHappyHour.videoId,
+                    chapters = selectedHappyHour.chapters
                 )
             )
         }

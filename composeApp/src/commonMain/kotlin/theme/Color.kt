@@ -6,9 +6,12 @@ import androidx.compose.ui.graphics.Color
 val happyHourBlack = Color(0xFF211E24)
 val happyHourGray = Color(0xFFD8CDDB)
 val happyHourPurple = Color(0xFF3a13bb)
+val happyHourLightPurple = Color(0xFF8160EF)
+
 
 val colorScheme = darkColors(
     primary = happyHourPurple,
+    primaryVariant = happyHourLightPurple,
     onPrimary = happyHourGray,
     background = happyHourBlack,
     onBackground = happyHourGray,
