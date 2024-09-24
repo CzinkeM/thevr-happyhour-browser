@@ -5,114 +5,39 @@ import domain.model.HappyHourVideo
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.withContext
 import networking.HappyHourHttpClient
-import presentation.HappyHourCardState
+import networking.dto.HappyHourPageDto
 
 class HappyHourRepository(
     private val happyHourHttpClient: HappyHourHttpClient
 ) {
-    suspend fun getHappyHoursByPage(page: Int, dispatcher: CoroutineDispatcher = Dispatchers.IO): List<HappyHourVideo> {
+    private suspend fun getHappyHoursByPage(page: String, dispatcher: CoroutineDispatcher = Dispatchers.IO): HappyHourPageDto {
         return withContext(dispatcher) {
-            happyHourHttpClient.loadHappyHourPage(page).toHappyHourVideoList()
+            happyHourHttpClient.loadHappyHourPage(page)
         }
     }
-    fun testHappyHours() = listOf(
-        HappyHourCardState(
-            id = 1,
-            title = "Első",
-            part = 1,
-            publishDate = "2024-02-31"
-        ),
-        HappyHourCardState(
-            id = 2,
-            title = "Első",
-            part = 1,
-            publishDate = "2024-02-31"
-        ),
-        HappyHourCardState(
-            id = 3,
-            title = "Első",
-            part = 1,
-            publishDate = "2024-02-31"
-        ),
-        HappyHourCardState(
-            id = 4,
-            title = "Első",
-            part = 1,
-            publishDate = "2024-02-31"
-        ),
-        HappyHourCardState(
-            id = 5,
-            title = "Első",
-            part = 1,
-            publishDate = "2024-02-31"
-        ),
-        HappyHourCardState(
-            id = 6,
-            title = "Első",
-            part = 1,
-            publishDate = "2024-02-31"
-        ),
-        HappyHourCardState(
-            id = 7,
-            title = "Első",
-            part = 1,
-            publishDate = "2024-02-31"
-        ),
-        HappyHourCardState(
-            id = 8,
-            title = "Első",
-            part = 1,
-            publishDate = "2024-02-31"
-        ),
-        HappyHourCardState(
-            id = 9,
-            title = "Első",
-            part = 1,
-            publishDate = "2024-02-31"
-        ),
-        HappyHourCardState(
-            id = 10,
-            title = "Első",
-            part = 1,
-            publishDate = "2024-02-31"
-        ),
-        HappyHourCardState(
-            id = 11,
-            title = "Első",
-            part = 1,
-            publishDate = "2024-02-31"
-        ),
-        HappyHourCardState(
-            id = 12,
-            title = "Első",
-            part = 1,
-            publishDate = "2024-02-31"
-        ),
-        HappyHourCardState(
-            id = 13,
-            title = "Első",
-            part = 1,
-            publishDate = "2024-02-31"
-        ),
-        HappyHourCardState(
-            id = 14,
-            title = "Első",
-            part = 1,
-            publishDate = "2024-02-31"
-        ),
-        HappyHourCardState(
-            id = 15,
-            title = "Első",
-            part = 1,
-            publishDate = "2024-02-31"
-        ),
-        HappyHourCardState(
-            id = 16,
-            title = "Első",
-            part = 1,
-            publishDate = "2024-02-31"
-        ),
-    )
+
+
+    fun syncHappyHours(): Flow<List<HappyHourVideo>> {
+        return channelFlow {
+            var targetPage = ""
+            var isMoreHappyHourAvailable = true
+            val hhList = mutableListOf<HappyHourVideo>()
+            while (isMoreHappyHourAvailable) {
+                val dto = getHappyHoursByPage(
+                    page = targetPage,
+                )
+                if(dto.hhVideos.isEmpty()) {
+                    isMoreHappyHourAvailable = false
+                } else {
+                    targetPage = dto.page.toString()
+                    hhList.addAll(dto.toHappyHourVideoList())
+                    send(hhList)
+                }
+            }
+        }
+    }
 }

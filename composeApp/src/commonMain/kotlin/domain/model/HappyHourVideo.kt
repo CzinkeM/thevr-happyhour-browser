@@ -1,6 +1,6 @@
 package domain.model
 
-import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalDate
 
 data class HappyHourVideo(
     val id: Int,
@@ -8,5 +8,5 @@ data class HappyHourVideo(
     val title: String,
     val videoId: String,
     val chapters: List<HappyHourChapter>,
-    val publishedDate: LocalDateTime
+    val publishedDate: LocalDate
 )

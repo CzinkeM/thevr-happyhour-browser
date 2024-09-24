@@ -24,7 +24,7 @@ fun HappyHourVideoDto.toHappyHourVideo(): HappyHourVideo {
         title = title,
         videoId = videoId,
         chapters = this.getChapterList(),
-        publishedDate = LocalDateTime.parse(this.publishedDate.replace(" ", "T")),
+        publishedDate = LocalDateTime.parse(this.publishedDate.replace(" ", "T")).date,
     )
 }
 

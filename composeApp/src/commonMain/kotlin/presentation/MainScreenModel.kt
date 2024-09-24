@@ -4,27 +4,20 @@ import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import data.HappyHourRepository
 import domain.mapper.toHappyHourCardState
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 
 class MainScreenModel(
     private val repository: HappyHourRepository,
 ): ScreenModel {
 
-    private val _happyHours = MutableStateFlow(emptyList<HappyHourCardState>())
-    val happyHours = _happyHours.asStateFlow()
-
-    init {
-        screenModelScope.launch {
-            _happyHours.update {
-                with(repository.getHappyHoursByPage(0)) {
-                    println("Current list size: ${this.size}")
-                    this.map { it.toHappyHourCardState() }
-                }
-            }
+    val happyHours = repository
+        .syncHappyHours()
+        .map { happyHoursVideo ->
+            happyHoursVideo.map { it.toHappyHourCardState() }
         }
-    }
+        .stateIn(
+        screenModelScope, SharingStarted.WhileSubscribed(3000), emptyList())
     //TODO: Utilize onDispose function
 }

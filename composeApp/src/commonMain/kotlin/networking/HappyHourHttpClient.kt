@@ -16,7 +16,7 @@ import networking.dto.HappyHourPageDto
 class HappyHourHttpClient(
     private val client: HttpClient
 ) {
-    suspend fun loadHappyHourPage(targetPage: Int): HappyHourPageDto {
+    suspend fun loadHappyHourPage(targetPage: String): HappyHourPageDto {
         val result = try {
             client.post(urlString = HappyHourUrl.HAPPY_HOURS) {
                 contentType(ContentType.MultiPart.FormData)
@@ -24,7 +24,7 @@ class HappyHourHttpClient(
                     FormDataContent(
                         Parameters.build {
                             append("srcTag", "")
-                            append("page",targetPage.toString())
+                            append("page", targetPage)
                         }
                     )
                 )
