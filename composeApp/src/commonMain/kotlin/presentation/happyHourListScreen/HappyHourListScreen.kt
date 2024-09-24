@@ -32,7 +32,9 @@ class HappyHourListScreen: Screen {
                 onEvent = { event ->
                     when(event) {
                         is HappyHourListEvent.OnHappyHourCardClick -> navigator.push(HappyHourDetailScreen(event.id))
-                        HappyHourListEvent.OnSearchFabClick -> TODO()
+                        HappyHourListEvent.OnSearchFabClick -> {
+                            // TODO:  
+                        }
                     }
                 }
             )
