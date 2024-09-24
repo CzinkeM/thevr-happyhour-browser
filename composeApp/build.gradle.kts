@@ -55,10 +55,11 @@ kotlin {
             implementation(libs.navigator.tabs)
             implementation(libs.navigator.transitions)
             implementation(libs.navigator.screenModel)
+
             implementation(libs.koin.core)
             implementation(libs.koin.voyager)
 
-            implementation(libs.coil)
+            implementation(libs.landscapist.coil)
 
             implementation(libs.bundles.ktor)
         }
