@@ -1,4 +1,4 @@
-package presentation.HappyHourListScreen
+package presentation.happyHourListScreen
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface

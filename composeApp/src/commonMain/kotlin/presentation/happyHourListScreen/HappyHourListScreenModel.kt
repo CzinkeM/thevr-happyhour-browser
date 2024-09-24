@@ -1,4 +1,4 @@
-package presentation.HappyHourListScreen
+package presentation.happyHourListScreen
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
