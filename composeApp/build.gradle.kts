@@ -35,7 +35,6 @@ kotlin {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
-            implementation("androidx.compose.material3:material3:1.3.0")
 
         }
         nativeMain.dependencies {
@@ -52,12 +51,6 @@ kotlin {
 
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlinx.dateTime)
-
-            implementation(libs.voyager.navigator)
-            implementation(libs.voyager.navigator.tabs)
-            implementation(libs.voyager.transitions)
-            implementation(libs.voyager.screenModel)
-            implementation(libs.voyager.koin)
 
             implementation(libs.landscapist.coil)
 
