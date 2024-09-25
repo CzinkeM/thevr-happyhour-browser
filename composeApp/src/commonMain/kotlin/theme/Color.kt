@@ -8,6 +8,8 @@ val happyHourGray = Color(0xFFD8CDDB)
 val happyHourPurple = Color(0xFF3a13bb)
 val happyHourLightPurple = Color(0xFF8160EF)
 
+val deepRed = Color(0xFFff0000)
+
 
 val colorScheme = darkColors(
     primary = happyHourPurple,
@@ -16,6 +18,8 @@ val colorScheme = darkColors(
     background = happyHourBlack,
     onBackground = happyHourGray,
     surface = happyHourGray,
-    onSurface = happyHourBlack
+    onSurface = happyHourBlack,
+    error = deepRed,
+    onError = Color.White,
 )
 
