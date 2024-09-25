@@ -35,6 +35,8 @@ kotlin {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
+            implementation("androidx.compose.material3:material3:1.3.0")
+
         }
         nativeMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -61,6 +63,7 @@ kotlin {
 
             implementation(libs.bundles.ktor)
             implementation(libs.bundles.koin)
+            implementation(libs.kmp.dateTime.picker)
         }
     }
 }
