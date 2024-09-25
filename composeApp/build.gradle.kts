@@ -63,6 +63,8 @@ kotlin {
 
             implementation(libs.bundles.ktor)
             implementation(libs.bundles.koin)
+            implementation(libs.bundles.voyager)
+
             implementation(libs.kmp.dateTime.picker)
         }
     }

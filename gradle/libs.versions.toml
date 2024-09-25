@@ -74,3 +74,10 @@ koin = [
     "koin-core",
     "koin-compose"
 ]
+voyager = [
+    "voyager-navigator",
+    "voyager-navigator-tabs",
+    "voyager-transitions",
+    "voyager-screenModel",
+    "voyager-koin",
+]
