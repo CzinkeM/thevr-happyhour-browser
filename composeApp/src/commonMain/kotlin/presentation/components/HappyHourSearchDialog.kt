@@ -58,6 +58,7 @@ import network.chaintech.utils.now
 fun HappyHourSearchDialog(
     modifier: Modifier = Modifier,
     onDismissRequest: () -> Unit,
+    onClickSearch: (SearchParameter) -> Unit
 ) {
     val tabs = listOf(
         SearchType.BY_PART,
@@ -145,7 +146,7 @@ fun HappyHourSearchDialog(
                                 latestHappyHourDate = LocalDate.now(),
                                 oldestHappyHourDate = LocalDate.parse("2017-04-17"),
                                 onClick = { date ->
-                                    println("search date: $date")
+                                    onClickSearch(date)
                                 }
                             )
                         }
@@ -154,7 +155,7 @@ fun HappyHourSearchDialog(
                                 modifier = Modifier.padding(16.dp),
                                 latestPartNumber = 2000,
                                 onClick = { part ->
-                                    println("search part: $part")
+                                    onClickSearch(part)
                                 }
                             )
                         }
@@ -162,7 +163,7 @@ fun HappyHourSearchDialog(
                             SearchByTextCard(
                                 modifier = Modifier.padding(16.dp),
                                 onClick = { searchedText ->
-                                    println("search text: $searchedText")
+                                   onClickSearch(searchedText)
                                 }
                             )
                         }

@@ -20,6 +20,7 @@ import presentation.components.HappyHourListEvent
 import presentation.components.HappyHourListState
 import presentation.components.HappyHourSearchDialog
 import presentation.happyHourDetailScreen.HappyHourDetailScreen
+import presentation.happyHourSearchResultScreen.HappyHourSearchResultScreen
 
 class HappyHourListScreen: Screen {
     @Composable
@@ -39,6 +40,9 @@ class HappyHourListScreen: Screen {
                     .fillMaxWidth(.9f),
                 onDismissRequest = {
                     isSearchDialog = false
+                },
+                onClickSearch = { parameter ->
+                    navigator.push(HappyHourSearchResultScreen(parameter))
                 }
             )
         }
