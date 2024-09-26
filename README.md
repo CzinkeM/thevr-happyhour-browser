@@ -39,11 +39,15 @@ The app is currently under development, and you may encounter bugs and errors. F
 ## 📥 Installation
 ### Download APK
 
-Go to the releases section and download the latest APK.
+Go to the releases section and download the latest version for your platform.
 
-### Android Studio
+### Clone and compile
 
-Clone  this repository and compile this application. You'll need [Git](https://git-scm.com) and [Android Studio](https://developer.android.com/studio) installed on your computer.
+Clone this repository and compile this project for your desired platform. 
+
+For android, you'll need [Git](https://git-scm.com) and [Android Studio](https://developer.android.com/studio) installed on your computer.
+
+For iOS...
 
 ## 📝 License
 
