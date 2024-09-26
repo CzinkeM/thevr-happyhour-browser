@@ -9,6 +9,7 @@ import data.offline.getDatabaseBuilder
 import di.commonModule
 import domain.AppLauncher
 import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
 import org.koin.dsl.module
 
 class MainActivity : ComponentActivity() {
@@ -27,5 +28,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             App()
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        stopKoin()
     }
 }
