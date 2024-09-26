@@ -16,7 +16,7 @@ class HappyHourListScreenModel(
     private val repository: HappyHourRepository,
 ) : ScreenModel {
 
-    val syncProgress = repository.syncProgress.asStateFlow()
+    val syncProgress = repository.syncingInProgress.asStateFlow()
 
     val happyHours = repository
         .happyHoursFlow()
@@ -30,7 +30,6 @@ class HappyHourListScreenModel(
 
     init {
         screenModelScope.launch(Dispatchers.IO) {
-
             repository.sync()
         }
     }

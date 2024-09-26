@@ -8,6 +8,7 @@ import domain.model.HappyHourVideo
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
@@ -22,7 +23,7 @@ class HappyHourRepository(
 ) {
     suspend fun sync(dispatcher: CoroutineDispatcher = Dispatchers.IO) {
         withContext(dispatcher) {
-            syncProgress.update { true }
+            syncingInProgress.update { true }
             val cachedLatestHappyHourPartNumber = happyHourDatabase.getDao().latest() ?: 0
             val syncedLatestHappyHourPartNumber =
                 happyHourHttpClient.loadHappyHourPage("").hhVideos.maxBy { it.part ?: 0 }.part
@@ -41,7 +42,7 @@ class HappyHourRepository(
                     }
                 }
             }
-            syncProgress.update { false }
+            syncingInProgress.update { false }
         }
     }
 
@@ -61,5 +62,5 @@ class HappyHourRepository(
         }
     }
 
-    val syncProgress = MutableStateFlow(false)
+    val syncingInProgress = MutableStateFlow(false)
 }

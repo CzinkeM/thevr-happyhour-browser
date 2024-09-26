@@ -36,7 +36,7 @@ import presentation.components.HappyHourCard
 import presentation.components.HappyHourCardEvent
 import presentation.components.TopologicalBackground
 import presentation.happyHourDetailScreen.HappyHourDetailScreen
-import presentation.loadingScreen.LoadingCard
+import presentation.components.LoadingCard
 
 class HappyHourSearchResultScreen(
     private val searchParameter: SearchParameter

@@ -42,6 +42,11 @@ class HappyHourListScreen : Screen {
         }
 
         AnimatedVisibility(isSearchDialog) {
+        AnimatedVisibility(
+            enter = fadeIn() + scaleIn(),
+            exit = fadeOut() + scaleOut(),
+            visible = isSearchDialog
+        ) {
             HappyHourSearchDialog(
                 modifier = Modifier
                     .fillMaxWidth(.9f),
@@ -55,40 +60,34 @@ class HappyHourListScreen : Screen {
         }
 
         Surface(modifier = Modifier) {
-            AnimatedContent(syncProgress) { progress ->
-                when (progress) {
-                    true -> {
-                        Box(
-                            modifier = Modifier.fillMaxSize()
-                        ) {
-                            Column(
-                                modifier = Modifier.align(Alignment.Center)
-                            ) {
-                                CircularProgressIndicator()
-                                Text("Sync in progress")
-                            }
+            HappyHourList(
+                modifier = Modifier.fillMaxSize(),
+                state = HappyHourListState(
+                    happyHourList = happyHours
+                ),
+                onEvent = { event ->
+                    when (event) {
+                        is HappyHourListEvent.OnHappyHourCardClick -> navigator.push(
+                            HappyHourDetailScreen(event.id)
+                        )
+
+                        HappyHourListEvent.OnSearchFabClick -> {
+                            isSearchDialog = true
                         }
                     }
+                }
+            )
 
-                    false -> {
-                        HappyHourList(
-                            modifier = Modifier.fillMaxSize(),
-                            state = HappyHourListState(
-                                happyHourList = happyHours
-                            ),
-                            onEvent = { event ->
-                                when (event) {
-                                    is HappyHourListEvent.OnHappyHourCardClick -> navigator.push(
-                                        HappyHourDetailScreen(event.id)
-                                    )
-
-                                    HappyHourListEvent.OnSearchFabClick -> {
-                                        isSearchDialog = true
-                                    }
-                                }
-                            }
-                        )
-                    }
+            AnimatedVisibility(
+                enter = fadeIn() + scaleIn(),
+                exit = fadeOut() + scaleOut(),
+                visible = syncProgress
+            ) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    SyncingCard()
                 }
             }
         }
