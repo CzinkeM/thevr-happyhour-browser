@@ -23,6 +23,7 @@ dateTimePickerVersion = "1.0.2"
 androidx-room = "2.7.0-alpha07"
 ksp = "2.0.10-1.0.24"
 datastore = "1.1.1"
+splashScreenVersion = "1.0.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -63,6 +64,8 @@ androidx-room-runtime = { group = "androidx.room", name = "room-runtime", versio
 
 androidx-datastore = { module = "androidx.datastore:datastore", version.ref = "datastore" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
+
+androidx-core-splashScreen = { module = "androidx.core:core-splashscreen", version.ref = "splashScreenVersion"}
 
 
 [plugins]

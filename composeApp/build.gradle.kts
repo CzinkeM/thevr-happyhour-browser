@@ -37,7 +37,7 @@ kotlin {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
-
+            implementation(libs.androidx.core.splashScreen)
         }
         nativeMain.dependencies {
             implementation(libs.ktor.client.darwin)

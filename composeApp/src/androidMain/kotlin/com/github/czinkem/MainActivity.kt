@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidModule
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import data.createDateStore
 import data.offline.getDatabaseBuilder
 import di.commonModule
@@ -16,6 +17,7 @@ import org.koin.dsl.module
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
         startKoin {
             modules(
                 commonModule,
