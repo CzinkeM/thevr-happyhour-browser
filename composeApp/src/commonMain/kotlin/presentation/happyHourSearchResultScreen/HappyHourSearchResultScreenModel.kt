@@ -18,27 +18,32 @@ import kotlinx.datetime.LocalDate
 
 class HappyHourSearchResultScreenModel(
     private val repository: HappyHourRepository
-): ScreenModel {
+) : ScreenModel {
     private val _searchInProgress = MutableStateFlow(false)
 
     private val _searchResultHappyHourList = MutableStateFlow<List<HappyHourVideo>>(emptyList())
 
-    val screenState = combine(_searchInProgress, _searchResultHappyHourList) { isSearching, resultList ->
-        if (isSearching) {
-            HappyHourSearchResultScreenState.IsSearching
-        }else {
-            if(resultList.isEmpty()) {
-                HappyHourSearchResultScreenState.EmptySearchResult
-            }else {
-                HappyHourSearchResultScreenState.SearchResult(resultList.map{ it.toHappyHourCardState() })
+    val screenState =
+        combine(_searchInProgress, _searchResultHappyHourList) { isSearching, resultList ->
+            if (isSearching) {
+                HappyHourSearchResultScreenState.IsSearching
+            } else {
+                if (resultList.isEmpty()) {
+                    HappyHourSearchResultScreenState.EmptySearchResult
+                } else {
+                    HappyHourSearchResultScreenState.SearchResult(resultList.map { it.toHappyHourCardState() })
+                }
             }
-        }
-    }.stateIn(screenModelScope, SharingStarted.WhileSubscribed(3000),HappyHourSearchResultScreenState.IsSearching)
+        }.stateIn(
+            screenModelScope,
+            SharingStarted.WhileSubscribed(3000),
+            HappyHourSearchResultScreenState.IsSearching
+        )
 
     fun search(parameter: SearchParameter) {
         screenModelScope.launch(Dispatchers.IO) {
             _searchInProgress.update { true }
-            when(parameter) {
+            when (parameter) {
                 is SearchParameter.DateSearchParameter -> searchByDate(parameter.date)
                 is SearchParameter.PartNumberSearchParameter -> searchByPartNumber(parameter.partNumber)
                 is SearchParameter.TextSearchParameter -> searchByText(parameter.searchedText)
@@ -67,7 +72,7 @@ class HappyHourSearchResultScreenModel(
         val allHappyHours = repository.happyHours()
         _searchResultHappyHourList.update {
             allHappyHours
-                .filter { video -> video.searchString.contains(searchedText)}
+                .filter { video -> video.searchString.contains(searchedText) }
         }
     }
 }

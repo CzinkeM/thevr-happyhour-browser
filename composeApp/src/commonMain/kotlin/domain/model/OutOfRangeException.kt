@@ -1,3 +1,3 @@
 package domain.model
 
-class OutOfRangeException: Exception()
+class OutOfRangeException : Exception()

@@ -24,13 +24,14 @@ class HappyHourRepository(
         withContext(dispatcher) {
             syncProgress.update { true }
             val cachedLatestHappyHourPartNumber = happyHourDatabase.getDao().latest() ?: 0
-            val syncedLatestHappyHourPartNumber = happyHourHttpClient.loadHappyHourPage("").hhVideos.maxBy { it.part ?: 0 }.part
-            if(cachedLatestHappyHourPartNumber < (syncedLatestHappyHourPartNumber ?: 0)) {
+            val syncedLatestHappyHourPartNumber =
+                happyHourHttpClient.loadHappyHourPage("").hhVideos.maxBy { it.part ?: 0 }.part
+            if (cachedLatestHappyHourPartNumber < (syncedLatestHappyHourPartNumber ?: 0)) {
                 var targetPage = ""
                 var isMoreHappyHourAvailable = true
                 while (isMoreHappyHourAvailable) {
                     val dto = getHappyHoursByPage(targetPage)
-                    if(dto.hhVideos.isEmpty()) {
+                    if (dto.hhVideos.isEmpty()) {
                         isMoreHappyHourAvailable = false
                     } else {
                         targetPage = dto.page.toString()
@@ -48,12 +49,17 @@ class HappyHourRepository(
         return happyHourDatabase.getDao().getAllAsFlow().map { it.toHappyHourVideoList() }
     }
 
-    suspend fun happyHours(): List<HappyHourVideo> = happyHourDatabase.getDao().getAll().map { it.toHappyHourVideo() }
+    suspend fun happyHours(): List<HappyHourVideo> =
+        happyHourDatabase.getDao().getAll().map { it.toHappyHourVideo() }
 
-    private suspend fun getHappyHoursByPage(page: String, dispatcher: CoroutineDispatcher = Dispatchers.IO): HappyHourPageDto {
+    private suspend fun getHappyHoursByPage(
+        page: String,
+        dispatcher: CoroutineDispatcher = Dispatchers.IO
+    ): HappyHourPageDto {
         return withContext(dispatcher) {
             happyHourHttpClient.loadHappyHourPage(page)
         }
     }
+
     val syncProgress = MutableStateFlow(false)
 }

@@ -35,7 +35,12 @@ fun HappyHourVideoChapterCard(
     Card(
         modifier = modifier,
         onClick = {
-            appLauncher.launchApp(uri = HappyHourUrlProvider.youtubeChapterUrl(timestampString = state.timestampString, videoId = state.videoId))
+            appLauncher.launchApp(
+                uri = HappyHourUrlProvider.youtubeChapterUrl(
+                    timestampString = state.timestampString,
+                    videoId = state.videoId
+                )
+            )
         },
         shape = RoundedCornerShape(8.dp),
         backgroundColor = MaterialTheme.colors.primaryVariant,

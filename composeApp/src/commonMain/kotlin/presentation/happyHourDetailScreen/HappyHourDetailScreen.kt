@@ -53,7 +53,7 @@ import presentation.components.SpotifyCard
 import presentation.components.TopologicalBackground
 import presentation.components.YoutubeCard
 
-data class HappyHourDetailScreen(val happyHourId: Int): Screen {
+data class HappyHourDetailScreen(val happyHourId: Int) : Screen {
     @OptIn(ExperimentalMaterialApi::class)
     @Composable
     override fun Content() {
@@ -76,7 +76,7 @@ data class HappyHourDetailScreen(val happyHourId: Int): Screen {
                 modifier = Modifier.fillMaxSize()
             )
             AnimatedContent(state) { s ->
-                when(s) {
+                when (s) {
                     is HappyHourDetailScreenState.Loaded -> {
                         LazyColumn(
                             modifier = Modifier
@@ -213,11 +213,12 @@ data class HappyHourDetailScreen(val happyHourId: Int): Screen {
                                                 modifier = Modifier.align(Alignment.BottomCenter),
                                                 targetState = isChaptersExpanded
                                             ) { isExpanded ->
-                                                when(isExpanded) {
+                                                when (isExpanded) {
                                                     true -> Icon(
                                                         imageVector = Icons.Default.ExpandLess,
                                                         contentDescription = null
                                                     )
+
                                                     false -> Icon(
                                                         imageVector = Icons.Default.ExpandMore,
                                                         contentDescription = null
@@ -233,7 +234,9 @@ data class HappyHourDetailScreen(val happyHourId: Int): Screen {
                                                 s.model.chapters.forEach { chapter ->
                                                     HappyHourVideoChapterCard(
                                                         modifier = Modifier.padding(horizontal = 8.dp),
-                                                        state = chapter.toHappyHourChapterCardState(s.model.videoId),
+                                                        state = chapter.toHappyHourChapterCardState(
+                                                            s.model.videoId
+                                                        ),
                                                     )
                                                 }
                                             }
@@ -244,6 +247,7 @@ data class HappyHourDetailScreen(val happyHourId: Int): Screen {
                             }
                         }
                     }
+
                     HappyHourDetailScreenState.Loading -> {
                         Box(modifier = Modifier.fillMaxSize()) {
                             CircularProgressIndicator(

@@ -28,7 +28,7 @@ import presentation.components.HappyHourSearchDialog
 import presentation.happyHourDetailScreen.HappyHourDetailScreen
 import presentation.happyHourSearchResultScreen.HappyHourSearchResultScreen
 
-class HappyHourListScreen: Screen {
+class HappyHourListScreen : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
@@ -56,7 +56,7 @@ class HappyHourListScreen: Screen {
 
         Surface(modifier = Modifier) {
             AnimatedContent(syncProgress) { progress ->
-                when(progress) {
+                when (progress) {
                     true -> {
                         Box(
                             modifier = Modifier.fillMaxSize()
@@ -69,6 +69,7 @@ class HappyHourListScreen: Screen {
                             }
                         }
                     }
+
                     false -> {
                         HappyHourList(
                             modifier = Modifier.fillMaxSize(),
@@ -76,8 +77,11 @@ class HappyHourListScreen: Screen {
                                 happyHourList = happyHours
                             ),
                             onEvent = { event ->
-                                when(event) {
-                                    is HappyHourListEvent.OnHappyHourCardClick -> navigator.push(HappyHourDetailScreen(event.id))
+                                when (event) {
+                                    is HappyHourListEvent.OnHappyHourCardClick -> navigator.push(
+                                        HappyHourDetailScreen(event.id)
+                                    )
+
                                     HappyHourListEvent.OnSearchFabClick -> {
                                         isSearchDialog = true
                                     }
@@ -87,7 +91,6 @@ class HappyHourListScreen: Screen {
                     }
                 }
             }
-
         }
     }
 }

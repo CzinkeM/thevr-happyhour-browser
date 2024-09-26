@@ -7,12 +7,12 @@ object Validator {
     fun isPartStringValid(partString: String, validRange: IntRange): ValidationResult<Int> {
         return try {
             val part = partString.toInt()
-            if(part in validRange) {
+            if (part in validRange) {
                 ValidationResult(t = part)
-            }else {
+            } else {
                 ValidationResult(exception = OutOfRangeException())
             }
-        }catch (e: NumberFormatException) {
+        } catch (e: NumberFormatException) {
             ValidationResult(exception = e)
         }
     }

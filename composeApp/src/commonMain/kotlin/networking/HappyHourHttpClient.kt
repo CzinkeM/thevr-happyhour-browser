@@ -35,10 +35,11 @@ class HappyHourHttpClient(
             TODO()
         }
 
-        return when(result.status.value) {
+        return when (result.status.value) {
             in 200..299 -> {
                 Json.decodeFromString<HappyHourPageDto>(result.body<String>())
             }
+
             else -> {
                 TODO()
             }

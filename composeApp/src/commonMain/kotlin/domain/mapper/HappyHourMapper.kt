@@ -18,7 +18,7 @@ fun HappyHourPageDto.toHappyHourVideoList(): List<HappyHourVideo> {
 }
 
 fun HappyHourVideoDto.toHappyHourVideo(): HappyHourVideo {
-    if(id.isNullOrMinus() || part.isNullOrMinus() || title.isNullOrBlank() || videoId.isNullOrBlank() || publishedDate.isNullOrBlank()) {
+    if (id.isNullOrMinus() || part.isNullOrMinus() || title.isNullOrBlank() || videoId.isNullOrBlank() || publishedDate.isNullOrBlank()) {
         throw IllegalArgumentException()
     }
 
@@ -35,11 +35,11 @@ fun HappyHourVideoDto.toHappyHourVideo(): HappyHourVideo {
 
 fun HappyHourVideoDto.getChapterList(): List<HappyHourChapter> {
     try {
-        if(timeStampText.isNullOrBlank() || videoId.isNullOrBlank()){
+        if (timeStampText.isNullOrBlank() || videoId.isNullOrBlank()) {
             return emptyList()
         }
         val hhChapters = mutableListOf<HappyHourChapter>()
-        if(this.timeStampText.contains("\n")) {
+        if (this.timeStampText.contains("\n")) {
             val timestampStrings = this.timeStampText.split("\n")
             timestampStrings.forEach {
                 val chapterString = it.removeSuffix("\r")
@@ -58,6 +58,7 @@ fun HappyHourVideoDto.getChapterList(): List<HappyHourChapter> {
                             )
                         )
                     }
+
                     chapterParts.size == 2 -> {
                         // TODO: sometime there is a chapter where the string with 0 index isn't a time code string pl időjárás-jelentés, currently in these cases we return 0
                         hhChapters.add(
@@ -67,6 +68,7 @@ fun HappyHourVideoDto.getChapterList(): List<HappyHourChapter> {
                             )
                         )
                     }
+
                     chapterParts.size > 2 -> {
                         val assembledTitle = chapterParts.subList(1, chapterParts.size)
                             .joinToString("-") { ch -> ch.trim() }
@@ -75,16 +77,17 @@ fun HappyHourVideoDto.getChapterList(): List<HappyHourChapter> {
                             timeStamp = chapterParts[0],
                         )
                     }
+
                     else -> {
                         throw IllegalStateException()
                     }
                 }
             }
             return hhChapters
-        }else {
+        } else {
             return emptyList()
         }
-    }catch (e: Exception) {
+    } catch (e: Exception) {
         throw IllegalStateException()
     }
 }
@@ -135,11 +138,11 @@ fun HappyHourVideoChapterEntity.toHappyHourChapter(): HappyHourChapter {
 }
 
 fun List<HappyHourVideoEntity>.toHappyHourVideoList(): List<HappyHourVideo> {
-    return this.map{it.toHappyHourVideo()}
+    return this.map { it.toHappyHourVideo() }
 }
 
 fun HappyHourVideoDto.toHappyHourVideoEntity(): HappyHourVideoEntity {
-    if(id.isNullOrMinus() || part.isNullOrMinus() || title.isNullOrBlank() || videoId.isNullOrBlank() || publishedDate.isNullOrBlank()) {
+    if (id.isNullOrMinus() || part.isNullOrMinus() || title.isNullOrBlank() || videoId.isNullOrBlank() || publishedDate.isNullOrBlank()) {
         throw IllegalArgumentException()
     }
 
@@ -149,7 +152,12 @@ fun HappyHourVideoDto.toHappyHourVideoEntity(): HappyHourVideoEntity {
         title = this.title,
         videoId = this.videoId,
         chapters = this.getChapterList().map { it.toHappyHourVideoChapterEntity() },
-        publishedDateAsEpoch = LocalDateTime.parse(this.publishedDate.replace(" ", "T")).date.toEpochDays(),
+        publishedDateAsEpoch = LocalDateTime.parse(
+            this.publishedDate.replace(
+                " ",
+                "T"
+            )
+        ).date.toEpochDays(),
     )
 }
 

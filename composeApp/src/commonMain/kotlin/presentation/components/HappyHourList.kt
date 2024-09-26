@@ -17,8 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 sealed interface HappyHourListEvent {
-    data object OnSearchFabClick: HappyHourListEvent
-    data class  OnHappyHourCardClick(val id: Int): HappyHourListEvent
+    data object OnSearchFabClick : HappyHourListEvent
+    data class OnHappyHourCardClick(val id: Int) : HappyHourListEvent
 }
 
 @Composable
@@ -50,8 +50,12 @@ fun HappyHourList(
                         .padding(bottom = 8.dp),
                     state = it,
                     onEvent = { event ->
-                        when(event) {
-                            is HappyHourCardEvent.OnCardClick -> onEvent(HappyHourListEvent.OnHappyHourCardClick(event.id))
+                        when (event) {
+                            is HappyHourCardEvent.OnCardClick -> onEvent(
+                                HappyHourListEvent.OnHappyHourCardClick(
+                                    event.id
+                                )
+                            )
                         }
                     },
                 )

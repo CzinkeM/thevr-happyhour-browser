@@ -15,7 +15,7 @@ class HappyHourDatabaseConverter {
     fun toChapterList(chaptersString: String): List<HappyHourVideoChapterEntity> {
         return if (chaptersString.isBlank()) {
             emptyList()
-        }else {
+        } else {
             Json.decodeFromString(chaptersString)
         }
     }

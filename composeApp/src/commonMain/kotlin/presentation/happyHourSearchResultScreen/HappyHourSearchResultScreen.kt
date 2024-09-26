@@ -40,7 +40,7 @@ import presentation.loadingScreen.LoadingCard
 
 class HappyHourSearchResultScreen(
     private val searchParameter: SearchParameter
-): Screen {
+) : Screen {
 
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
@@ -62,7 +62,7 @@ class HappyHourSearchResultScreen(
                     modifier = Modifier.fillMaxSize().align(Alignment.Center),
                     targetState = screenState
                 ) { state ->
-                    when(state) {
+                    when (state) {
                         HappyHourSearchResultScreenState.EmptySearchResult -> {
                             Box(
                                 modifier = Modifier.fillMaxSize(),
@@ -84,6 +84,7 @@ class HappyHourSearchResultScreen(
                                 }
                             }
                         }
+
                         HappyHourSearchResultScreenState.IsSearching -> {
                             Box(
                                 modifier = Modifier.fillMaxSize(),
@@ -94,6 +95,7 @@ class HappyHourSearchResultScreen(
                                 )
                             }
                         }
+
                         is HappyHourSearchResultScreenState.SearchResult -> {
                             LazyColumn(
                                 modifier = Modifier.fillMaxSize()
@@ -127,8 +129,10 @@ class HappyHourSearchResultScreen(
                                             .padding(bottom = 8.dp),
                                         state = videoCardState,
                                         onEvent = { event ->
-                                            when(event) {
-                                                is HappyHourCardEvent.OnCardClick -> navigator.push(HappyHourDetailScreen(event.id))
+                                            when (event) {
+                                                is HappyHourCardEvent.OnCardClick -> navigator.push(
+                                                    HappyHourDetailScreen(event.id)
+                                                )
                                             }
                                         }
                                     )

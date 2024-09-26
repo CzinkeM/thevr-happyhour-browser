@@ -25,7 +25,7 @@ fun HappyHourPartNumber(
     Card(
         modifier = modifier,
         border = BorderStroke(1.dp, MaterialTheme.colors.primary)
-    ){
+    ) {
         Column(
             modifier = Modifier.padding(4.dp),
             horizontalAlignment = Alignment.CenterHorizontally,

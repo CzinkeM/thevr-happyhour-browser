@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class HappyHourListScreenModel(
     private val repository: HappyHourRepository,
-): ScreenModel {
+) : ScreenModel {
 
     val syncProgress = repository.syncProgress.asStateFlow()
 
@@ -24,7 +24,8 @@ class HappyHourListScreenModel(
             happyHoursVideo.map { it.toHappyHourCardState() }
         }
         .stateIn(
-        screenModelScope, SharingStarted.WhileSubscribed(3000), emptyList())
+            screenModelScope, SharingStarted.WhileSubscribed(3000), emptyList()
+        )
     //TODO: Utilize onDispose function
 
     init {

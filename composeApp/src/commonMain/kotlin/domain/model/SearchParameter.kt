@@ -8,7 +8,7 @@ sealed interface SearchParameter {
 
     data class DateSearchParameter(
         val date: LocalDate
-    ): SearchParameter {
+    ) : SearchParameter {
         override fun searchInfo(): String {
             return date.toString()
         }
@@ -17,7 +17,7 @@ sealed interface SearchParameter {
 
     data class PartNumberSearchParameter(
         val partNumber: Int,
-    ): SearchParameter {
+    ) : SearchParameter {
         override fun searchInfo(): String {
             return partNumber.toString()
         }
@@ -25,7 +25,7 @@ sealed interface SearchParameter {
 
     data class TextSearchParameter(
         val searchedText: String
-    ): SearchParameter {
+    ) : SearchParameter {
         override fun searchInfo(): String {
             return searchedText
         }

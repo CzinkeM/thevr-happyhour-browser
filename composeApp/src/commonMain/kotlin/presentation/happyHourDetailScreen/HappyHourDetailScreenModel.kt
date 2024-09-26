@@ -13,28 +13,34 @@ import kotlinx.coroutines.launch
 
 class HappyHourDetailScreenModel(
     repository: HappyHourRepository,
-): ScreenModel {
-    private var allHappyHours = repository.happyHoursFlow().stateIn(screenModelScope, SharingStarted.Eagerly, emptyList())
+) : ScreenModel {
+    private var allHappyHours =
+        repository.happyHoursFlow().stateIn(screenModelScope, SharingStarted.Eagerly, emptyList())
     private val selectedHappyHourId = MutableStateFlow<Int?>(null)
 
-    val selectedHappyHour = combine(allHappyHours, selectedHappyHourId) { happyHours, selectedHappyHourId ->
-        val selectedHappyHour = happyHours.firstOrNull { it.id == selectedHappyHourId }
-        if (selectedHappyHour == null) {
-            HappyHourDetailScreenState.Loading
-        }else{
-            println("${selectedHappyHour.part}: ${selectedHappyHour.chapters.size}")
-            HappyHourDetailScreenState.Loaded(
-                model = HappyHourDetailScreenStateModel(
-                    id = selectedHappyHour.id,
-                    title = HappyHourTitleFormatter.format(selectedHappyHour.title),
-                    part = selectedHappyHour.part,
-                    dateString = selectedHappyHour.publishedDate.toString(),
-                    videoId = selectedHappyHour.videoId,
-                    chapters = selectedHappyHour.chapters
+    val selectedHappyHour =
+        combine(allHappyHours, selectedHappyHourId) { happyHours, selectedHappyHourId ->
+            val selectedHappyHour = happyHours.firstOrNull { it.id == selectedHappyHourId }
+            if (selectedHappyHour == null) {
+                HappyHourDetailScreenState.Loading
+            } else {
+                println("${selectedHappyHour.part}: ${selectedHappyHour.chapters.size}")
+                HappyHourDetailScreenState.Loaded(
+                    model = HappyHourDetailScreenStateModel(
+                        id = selectedHappyHour.id,
+                        title = HappyHourTitleFormatter.format(selectedHappyHour.title),
+                        part = selectedHappyHour.part,
+                        dateString = selectedHappyHour.publishedDate.toString(),
+                        videoId = selectedHappyHour.videoId,
+                        chapters = selectedHappyHour.chapters
+                    )
                 )
-            )
-        }
-    }.stateIn(screenModelScope, SharingStarted.WhileSubscribed(3000),HappyHourDetailScreenState.Loading)
+            }
+        }.stateIn(
+            screenModelScope,
+            SharingStarted.WhileSubscribed(3000),
+            HappyHourDetailScreenState.Loading
+        )
 
     fun setSelectedHappyHour(happyHourId: Int?) {
         screenModelScope.launch {

@@ -26,7 +26,7 @@ data class HappyHourCardState(
 )
 
 sealed interface HappyHourCardEvent {
-    data class OnCardClick(val id: Int): HappyHourCardEvent
+    data class OnCardClick(val id: Int) : HappyHourCardEvent
 }
 
 @OptIn(ExperimentalMaterialApi::class)

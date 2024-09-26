@@ -10,7 +10,7 @@ object HappyHourUrlProvider {
     const val HAPPY_HOURS = "$BASE_URL/HappyHour/ajax.hhvideos.php"
 
     fun youtubeThumbnailUrl(videoId: String): String {
-        return thumbnailEndpointTemplate.replace("%s",videoId)
+        return thumbnailEndpointTemplate.replace("%s", videoId)
     }
 
     fun youtubeVideoUrl(videoId: String): String {

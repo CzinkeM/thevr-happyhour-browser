@@ -115,7 +115,8 @@ fun HappyHourSearchDialog(
                         }
                     }
                     SearchTypeRow(
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp).padding(8.dp),
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
+                            .padding(8.dp),
                         selected = selectedType == SearchType.BY_PART,
                         label = "By Part",
                         onClick = {
@@ -123,7 +124,8 @@ fun HappyHourSearchDialog(
                         },
                     )
                     SearchTypeRow(
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp).padding(8.dp),
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
+                            .padding(8.dp),
                         selected = selectedType == SearchType.BY_DATE,
                         label = "By Date",
                         onClick = {
@@ -131,7 +133,8 @@ fun HappyHourSearchDialog(
                         }
                     )
                     SearchTypeRow(
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp).padding(top = 8.dp),
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
+                            .padding(top = 8.dp),
                         selected = selectedType == SearchType.BY_TEXT,
                         label = "By Text",
                         onClick = {
@@ -139,7 +142,7 @@ fun HappyHourSearchDialog(
                         }
                     )
                     Divider(modifier = Modifier.fillMaxWidth(.9f))
-                    when(selectedType) {
+                    when (selectedType) {
                         SearchType.BY_DATE -> {
                             SearchByDateCard(
                                 modifier = Modifier.padding(16.dp),
@@ -150,6 +153,7 @@ fun HappyHourSearchDialog(
                                 }
                             )
                         }
+
                         SearchType.BY_PART -> {
                             SearchByPartCard(
                                 modifier = Modifier.padding(16.dp),
@@ -159,11 +163,12 @@ fun HappyHourSearchDialog(
                                 }
                             )
                         }
+
                         SearchType.BY_TEXT -> {
                             SearchByTextCard(
                                 modifier = Modifier.padding(16.dp),
                                 onClick = { searchedText ->
-                                   onClickSearch(searchedText)
+                                    onClickSearch(searchedText)
                                 }
                             )
                         }
@@ -184,15 +189,15 @@ private fun SearchTypeRow(
 ) {
     Card(
         modifier = modifier,
-        backgroundColor = if(selected) {
+        backgroundColor = if (selected) {
             MaterialTheme.colors.primaryVariant
-        }else {
+        } else {
             MaterialTheme.colors.surface
         },
         shape = MaterialTheme.shapes.medium,
-        border = if(selected) {
+        border = if (selected) {
             BorderStroke(1.dp, MaterialTheme.colors.primary)
-        }else {
+        } else {
             null
         },
         onClick = onClick
@@ -285,7 +290,7 @@ private fun SearchByPartCard(
                 }
             )
             AnimatedVisibility(!part.isValid && partString.isNotEmpty()) {
-                if(!part.isValid) {
+                if (!part.isValid) {
                     when (part.exception) {
                         is NumberFormatException -> Text("Please enter  a valid number!")
                         is OutOfRangeException -> Text("Please enter a number with in ${validRange}!")
@@ -316,16 +321,19 @@ private fun SearchByDateCard(
     var selectedDate by remember {
         mutableStateOf(LocalDate.now())
     }
-    var wheelDatePickerShows by remember{
+    var wheelDatePickerShows by remember {
         mutableStateOf(false)
     }
-    
+
     AnimatedVisibility(wheelDatePickerShows) {
         WheelDatePickerDialog(
             modifier = Modifier.padding(16.dp),
             showDatePicker = wheelDatePickerShows,
             title = "Select Date",
-            doneLabelStyle = LocalTextStyle.current.copy(fontWeight = FontWeight.SemiBold, color = MaterialTheme.colors.primary),
+            doneLabelStyle = LocalTextStyle.current.copy(
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colors.primary
+            ),
             onDismiss = {
                 wheelDatePickerShows = false
             },
