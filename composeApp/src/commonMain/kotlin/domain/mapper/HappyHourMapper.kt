@@ -8,10 +8,10 @@ import domain.model.HappyHourChapter
 import domain.model.HappyHourVideo
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
-import networking.HappyHourUrlProvider
 import networking.dto.HappyHourPageDto
 import networking.dto.HappyHourVideoDto
 import presentation.components.HappyHourCardState
+import presentation.components.HappyHourVideoChapterCardState
 
 fun HappyHourPageDto.toHappyHourVideoList(): List<HappyHourVideo> {
     return this.hhVideos.map { dto -> dto.toHappyHourVideo() }
@@ -55,7 +55,6 @@ fun HappyHourVideoDto.getChapterList(): List<HappyHourChapter> {
                             HappyHourChapter(
                                 title = title.trim(),
                                 timeStamp = timestamp,
-                                uri = HappyHourUrlProvider.youtubeChapterUrl(timestampString = timestamp, videoId = this.videoId)
                             )
                         )
                     }
@@ -65,7 +64,6 @@ fun HappyHourVideoDto.getChapterList(): List<HappyHourChapter> {
                             HappyHourChapter(
                                 title = chapterParts[1],
                                 timeStamp = chapterParts[0],
-                                uri = HappyHourUrlProvider.youtubeChapterUrl(timestampString = chapterParts[0], videoId = videoId)
                             )
                         )
                     }
@@ -75,7 +73,6 @@ fun HappyHourVideoDto.getChapterList(): List<HappyHourChapter> {
                         HappyHourChapter(
                             title = assembledTitle,
                             timeStamp = chapterParts[0],
-                            uri = HappyHourUrlProvider.youtubeChapterUrl(timestampString = chapterParts[0], videoId = videoId)
                         )
                     }
                     else -> {
@@ -134,10 +131,32 @@ fun HappyHourVideoChapterEntity.toHappyHourChapter(): HappyHourChapter {
     return HappyHourChapter(
         title = this.title,
         timeStamp = this.timeStamp,
-        uri = "TODO" // TODO: should not be used in this class
     )
 }
 
 fun List<HappyHourVideoEntity>.toHappyHourVideoList(): List<HappyHourVideo> {
     return this.map{it.toHappyHourVideo()}
+}
+
+fun HappyHourVideoDto.toHappyHourVideoEntity(): HappyHourVideoEntity {
+    if(id.isNullOrMinus() || part.isNullOrMinus() || title.isNullOrBlank() || videoId.isNullOrBlank() || publishedDate.isNullOrBlank()) {
+        throw IllegalArgumentException()
+    }
+
+    return HappyHourVideoEntity(
+        id = this.id!!,
+        part = this.part!!,
+        title = this.title,
+        videoId = this.videoId,
+        chapters = this.getChapterList().map { it.toHappyHourVideoChapterEntity() },
+        publishedDateAsEpoch = LocalDateTime.parse(this.publishedDate.replace(" ", "T")).date.toEpochDays(),
+    )
+}
+
+fun HappyHourChapter.toHappyHourChapterCardState(videoId: String): HappyHourVideoChapterCardState {
+    return HappyHourVideoChapterCardState(
+        title = this.title,
+        timestampString = this.timeStamp,
+        videoId = videoId
+    )
 }

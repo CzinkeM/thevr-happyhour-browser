@@ -9,4 +9,6 @@ data class HappyHourVideo(
     val videoId: String,
     val chapters: List<HappyHourChapter>,
     val publishedDate: LocalDate
-)
+) {
+    val searchString = "$part $title ${chapters.joinToString(" ") { it.title }} $publishedDate"
+}

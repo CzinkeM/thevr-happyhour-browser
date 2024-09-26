@@ -18,9 +18,8 @@ interface HappyHourVideoDao {
     @Query("SELECT * FROM HappyHourVideoEntity")
     fun getAllAsFlow(): Flow<List<HappyHourVideoEntity>>
 
-    @Query("DELETE FROM HappyHourVideoEntity")
-    fun clearTable()
-
+    @Query("SELECT * FROM HappyHourVideoEntity")
+    suspend fun getAll(): List<HappyHourVideoEntity>
 }
 
 

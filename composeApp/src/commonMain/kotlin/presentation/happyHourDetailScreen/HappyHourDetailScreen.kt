@@ -45,6 +45,7 @@ import cafe.adriel.voyager.koin.getNavigatorScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.skydoves.landscapist.coil3.CoilImage
+import domain.mapper.toHappyHourChapterCardState
 import networking.HappyHourUrlProvider
 import presentation.components.HappyHourDateCard
 import presentation.components.HappyHourVideoChapterCard
@@ -232,7 +233,7 @@ data class HappyHourDetailScreen(val happyHourId: Int): Screen {
                                                 s.model.chapters.forEach { chapter ->
                                                     HappyHourVideoChapterCard(
                                                         modifier = Modifier.padding(horizontal = 8.dp),
-                                                        state = chapter,
+                                                        state = chapter.toHappyHourChapterCardState(s.model.videoId),
                                                     )
                                                 }
                                             }

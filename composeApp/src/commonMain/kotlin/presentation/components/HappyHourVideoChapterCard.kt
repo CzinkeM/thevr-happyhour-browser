@@ -16,20 +16,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import domain.AppLauncher
-import domain.model.HappyHourChapter
+import networking.HappyHourUrlProvider
 import org.koin.compose.koinInject
+
+data class HappyHourVideoChapterCardState(
+    val title: String,
+    val timestampString: String,
+    val videoId: String
+)
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun HappyHourVideoChapterCard(
     modifier: Modifier = Modifier,
-    state: HappyHourChapter,
+    state: HappyHourVideoChapterCardState,
 ) {
     val appLauncher = koinInject<AppLauncher>()
     Card(
         modifier = modifier,
         onClick = {
-            appLauncher.launchApp(uri = state.uri)
+            appLauncher.launchApp(uri = HappyHourUrlProvider.youtubeChapterUrl(timestampString = state.timestampString, videoId = state.videoId))
         },
         shape = RoundedCornerShape(8.dp),
         backgroundColor = MaterialTheme.colors.primaryVariant,
@@ -43,7 +49,7 @@ fun HappyHourVideoChapterCard(
         ) {
             Text(
                 modifier = Modifier.weight(0.7f),
-                text = state.timeStamp,
+                text = state.timestampString,
                 color = MaterialTheme.colors.primary
             )
             Spacer(

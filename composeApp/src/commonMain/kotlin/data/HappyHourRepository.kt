@@ -35,7 +35,7 @@ class HappyHourRepository(
                     } else {
                         targetPage = dto.page.toString()
                         dto.hhVideos.forEach { videoDto ->
-                            happyHourDatabase.getDao().insert(videoDto.toHappyHourVideo().toHappyHourVideoEntity())
+                            happyHourDatabase.getDao().insert(videoDto.toHappyHourVideoEntity())
                         }
                     }
                 }
@@ -47,6 +47,8 @@ class HappyHourRepository(
     fun happyHoursFlow(): Flow<List<HappyHourVideo>> {
         return happyHourDatabase.getDao().getAllAsFlow().map { it.toHappyHourVideoList() }
     }
+
+    suspend fun happyHours(): List<HappyHourVideo> = happyHourDatabase.getDao().getAll().map { it.toHappyHourVideo() }
 
     private suspend fun getHappyHoursByPage(page: String, dispatcher: CoroutineDispatcher = Dispatchers.IO): HappyHourPageDto {
         return withContext(dispatcher) {
