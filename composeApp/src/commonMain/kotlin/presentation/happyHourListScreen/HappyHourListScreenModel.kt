@@ -14,9 +14,10 @@ import kotlinx.coroutines.launch
 
 class HappyHourListScreenModel(
     private val repository: HappyHourRepository,
-) : ScreenModel {
 
+) : ScreenModel {
     val syncProgress = repository.syncingInProgress.asStateFlow()
+    val shouldShowDisclaimerDialog = repository.shouldShowDisclaimerDialog.stateIn(screenModelScope, SharingStarted.WhileSubscribed(3000), false)
 
     val happyHours = repository
         .happyHoursFlow()
@@ -31,6 +32,12 @@ class HappyHourListScreenModel(
     init {
         screenModelScope.launch(Dispatchers.IO) {
             repository.sync()
+        }
+    }
+
+    fun stopShowingDisclaimerDialogOnStart() {
+        screenModelScope.launch(Dispatchers.IO) {
+            repository.doNotShowDisclaimerDialogOnStart()
         }
     }
 }

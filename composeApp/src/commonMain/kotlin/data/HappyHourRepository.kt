@@ -8,7 +8,6 @@ import domain.model.HappyHourVideo
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
@@ -19,7 +18,8 @@ import networking.dto.HappyHourPageDto
 
 class HappyHourRepository(
     private val happyHourHttpClient: HappyHourHttpClient,
-    private val happyHourDatabase: HappyHourDatabase
+    private val happyHourDatabase: HappyHourDatabase,
+    private val preferencesManager: PreferencesManager,
 ) {
     suspend fun sync(dispatcher: CoroutineDispatcher = Dispatchers.IO) {
         withContext(dispatcher) {
@@ -63,4 +63,10 @@ class HappyHourRepository(
     }
 
     val syncingInProgress = MutableStateFlow(false)
+
+    val shouldShowDisclaimerDialog = preferencesManager.shouldShowDisclaimerDialog()
+
+    suspend fun doNotShowDisclaimerDialogOnStart() {
+        preferencesManager.changeShouldShowDisclaimerDialog(false)
+    }
 }

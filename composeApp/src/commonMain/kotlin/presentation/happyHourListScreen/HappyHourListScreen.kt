@@ -1,14 +1,14 @@
 package presentation.happyHourListScreen
 
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -21,10 +21,12 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.getNavigatorScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import presentation.components.DisclaimerDialog
 import presentation.components.HappyHourList
 import presentation.components.HappyHourListEvent
 import presentation.components.HappyHourListState
 import presentation.components.HappyHourSearchDialog
+import presentation.components.SyncingCard
 import presentation.happyHourDetailScreen.HappyHourDetailScreen
 import presentation.happyHourSearchResultScreen.HappyHourSearchResultScreen
 
@@ -41,7 +43,8 @@ class HappyHourListScreen : Screen {
             mutableStateOf(false)
         }
 
-        AnimatedVisibility(isSearchDialog) {
+        val doesDisclaimerDialogShows by screenModel.shouldShowDisclaimerDialog.collectAsState()
+
         AnimatedVisibility(
             enter = fadeIn() + scaleIn(),
             exit = fadeOut() + scaleOut(),
@@ -58,6 +61,19 @@ class HappyHourListScreen : Screen {
                 }
             )
         }
+
+        AnimatedVisibility(
+            enter = fadeIn() + scaleIn(),
+            exit = fadeOut() + scaleOut(),
+            visible = doesDisclaimerDialogShows
+        ) {
+            DisclaimerDialog(
+                onOkButtonClicked = {
+                    screenModel.stopShowingDisclaimerDialogOnStart()
+                }
+            )
+        }
+
 
         Surface(modifier = Modifier) {
             HappyHourList(

@@ -63,6 +63,9 @@ kotlin {
             implementation(libs.kmp.dateTime.picker)
 
             implementation(libs.androidx.room.runtime)
+
+            api(libs.androidx.datastore.preferences)
+            api(libs.androidx.datastore)
         }
     }
 }
