@@ -24,7 +24,6 @@ class HappyHourDetailScreenModel(
             if (selectedHappyHour == null) {
                 HappyHourDetailScreenState.Loading
             } else {
-                println("${selectedHappyHour.part}: ${selectedHappyHour.chapters.size}")
                 HappyHourDetailScreenState.Loaded(
                     model = HappyHourDetailScreenStateModel(
                         id = selectedHappyHour.id,
@@ -48,12 +47,5 @@ class HappyHourDetailScreenModel(
                 happyHourId
             }
         }
-    }
-
-    override fun onDispose() {
-        screenModelScope.launch {
-            selectedHappyHourId.update { null }
-        }
-        super.onDispose()
     }
 }
