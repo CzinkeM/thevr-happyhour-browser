@@ -1,9 +1,12 @@
 package domain.mapper
 
+import data.HappyHourVideoChapterEntity
+import data.HappyHourVideoEntity
 import domain.HappyHourTitleFormatter
 import domain.isNullOrMinus
 import domain.model.HappyHourChapter
 import domain.model.HappyHourVideo
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import networking.HappyHourUrlProvider
 import networking.dto.HappyHourPageDto
@@ -96,4 +99,45 @@ fun HappyHourVideo.toHappyHourCardState(): HappyHourCardState {
         part = part,
         publishDate = publishedDate.toString()
     )
+}
+
+fun HappyHourVideo.toHappyHourVideoEntity(): HappyHourVideoEntity {
+    return HappyHourVideoEntity(
+        id = this.id,
+        part = this.part,
+        title = this.title,
+        videoId = this.videoId,
+        chapters = this.chapters.map { it.toHappyHourVideoChapterEntity() },
+        publishedDateAsEpoch = this.publishedDate.toEpochDays()
+    )
+}
+
+fun HappyHourVideoEntity.toHappyHourVideo(): HappyHourVideo {
+    return HappyHourVideo(
+        id = this.id,
+        part = this.part,
+        title = this.title,
+        videoId = this.videoId,
+        chapters = this.chapters.map { it.toHappyHourChapter() },
+        publishedDate = LocalDate.fromEpochDays(this.publishedDateAsEpoch)
+    )
+}
+
+fun HappyHourChapter.toHappyHourVideoChapterEntity(): HappyHourVideoChapterEntity {
+    return HappyHourVideoChapterEntity(
+        title = this.title,
+        timeStamp = this.timeStamp,
+    )
+}
+
+fun HappyHourVideoChapterEntity.toHappyHourChapter(): HappyHourChapter {
+    return HappyHourChapter(
+        title = this.title,
+        timeStamp = this.timeStamp,
+        uri = "TODO" // TODO: should not be used in this class
+    )
+}
+
+fun List<HappyHourVideoEntity>.toHappyHourVideoList(): List<HappyHourVideo> {
+    return this.map{it.toHappyHourVideo()}
 }

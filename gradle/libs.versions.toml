@@ -20,6 +20,8 @@ kotlin-dateTime = "0.4.1"
 koin-bom = "4.0.0"
 landscapistVersion = "2.3.8"
 dateTimePickerVersion = "1.0.2"
+androidx-room = "2.7.0-alpha07"
+ksp = "2.0.10-1.0.24"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -55,6 +57,10 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 landscapist-coil = { module = "com.github.skydoves:landscapist-coil3", version.ref="landscapistVersion"}
 kmp-dateTime-picker = { module = "network.chaintech:kmp-date-time-picker", version.ref="dateTimePickerVersion"}
 
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidx-room" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "androidx-room" }
+androidx-room-paging = { group = "androidx.room", name = "room-paging", version.ref = "androidx-room" }
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -63,6 +69,8 @@ jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinSerialization = {id = "org.jetbrains.kotlin.plugin.serialization", version.ref="kotlin"}
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+room = { id = "androidx.room", version.ref = "androidx-room" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 [bundles]
 ktor = [

@@ -8,6 +8,8 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.room)
+    alias(libs.plugins.ksp)
 }
 
 kotlin {
@@ -59,6 +61,8 @@ kotlin {
             implementation(libs.bundles.voyager)
 
             implementation(libs.kmp.dateTime.picker)
+
+            implementation(libs.androidx.room.runtime)
         }
     }
 }
@@ -96,7 +100,14 @@ android {
         compose = true
     }
     dependencies {
+
         debugImplementation(compose.uiTooling)
     }
+}
+dependencies {
+    add("kspAndroid", libs.androidx.room.compiler)
+}
+room {
+    schemaDirectory("$projectDir/schemas")
 }
 

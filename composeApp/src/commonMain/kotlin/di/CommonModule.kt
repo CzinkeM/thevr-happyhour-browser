@@ -10,5 +10,5 @@ val commonModule = module {
     factory { HappyHourListScreenModel(get()) }
     factory { HappyHourDetailScreenModel(get()) }
     factory { HappyHourSearchResultScreenModel(get()) }
-    single { HappyHourRepository(get()) }
+    single { HappyHourRepository(get(), get()) }
 }

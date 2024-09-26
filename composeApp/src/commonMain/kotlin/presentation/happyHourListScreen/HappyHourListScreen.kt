@@ -1,15 +1,21 @@
 package presentation.happyHourListScreen
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.getNavigatorScreenModel
@@ -28,6 +34,7 @@ class HappyHourListScreen: Screen {
         val navigator = LocalNavigator.currentOrThrow
         val screenModel = navigator.getNavigatorScreenModel<HappyHourListScreenModel>()
 
+        val syncProgress by screenModel.syncProgress.collectAsState()
         val happyHours by screenModel.happyHours.collectAsState()
 
         var isSearchDialog by remember {
@@ -48,20 +55,39 @@ class HappyHourListScreen: Screen {
         }
 
         Surface(modifier = Modifier) {
-            HappyHourList(
-                modifier = Modifier.fillMaxSize(),
-                state = HappyHourListState(
-                    happyHourList = happyHours
-                ),
-                onEvent = { event ->
-                    when(event) {
-                        is HappyHourListEvent.OnHappyHourCardClick -> navigator.push(HappyHourDetailScreen(event.id))
-                        HappyHourListEvent.OnSearchFabClick -> {
-                            isSearchDialog = true
+            AnimatedContent(syncProgress) { progress ->
+                when(progress) {
+                    true -> {
+                        Box(
+                            modifier = Modifier.fillMaxSize()
+                        ) {
+                            Column(
+                                modifier = Modifier.align(Alignment.Center)
+                            ) {
+                                CircularProgressIndicator()
+                                Text("Sync in progress")
+                            }
                         }
                     }
+                    false -> {
+                        HappyHourList(
+                            modifier = Modifier.fillMaxSize(),
+                            state = HappyHourListState(
+                                happyHourList = happyHours
+                            ),
+                            onEvent = { event ->
+                                when(event) {
+                                    is HappyHourListEvent.OnHappyHourCardClick -> navigator.push(HappyHourDetailScreen(event.id))
+                                    HappyHourListEvent.OnSearchFabClick -> {
+                                        isSearchDialog = true
+                                    }
+                                }
+                            }
+                        )
+                    }
                 }
-            )
+            }
+
         }
     }
 }
