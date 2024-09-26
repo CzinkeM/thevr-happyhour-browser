@@ -1,4 +1,4 @@
-package data
+package data.offline
 
 import android.content.Context
 import androidx.room.Room

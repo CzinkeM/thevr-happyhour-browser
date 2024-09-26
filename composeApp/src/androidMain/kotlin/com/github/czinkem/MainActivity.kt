@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidModule
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import data.getDatabaseBuilder
+import data.offline.getDatabaseBuilder
 import di.commonModule
 import domain.AppLauncher
 import org.koin.core.context.startKoin

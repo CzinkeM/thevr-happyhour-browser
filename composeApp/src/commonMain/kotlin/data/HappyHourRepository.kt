@@ -1,5 +1,6 @@
 package data
 
+import data.offline.HappyHourDatabase
 import domain.mapper.toHappyHourVideo
 import domain.mapper.toHappyHourVideoEntity
 import domain.mapper.toHappyHourVideoList
@@ -19,40 +20,38 @@ class HappyHourRepository(
     private val happyHourHttpClient: HappyHourHttpClient,
     private val happyHourDatabase: HappyHourDatabase
 ) {
+    suspend fun sync(dispatcher: CoroutineDispatcher = Dispatchers.IO) {
+        withContext(dispatcher) {
+            syncProgress.update { true }
+            val cachedLatestHappyHourPartNumber = happyHourDatabase.getDao().latest() ?: 0
+            val syncedLatestHappyHourPartNumber = happyHourHttpClient.loadHappyHourPage("").hhVideos.maxBy { it.part ?: 0 }.part
+            if(cachedLatestHappyHourPartNumber < (syncedLatestHappyHourPartNumber ?: 0)) {
+                var targetPage = ""
+                var isMoreHappyHourAvailable = true
+                while (isMoreHappyHourAvailable) {
+                    val dto = getHappyHoursByPage(targetPage)
+                    if(dto.hhVideos.isEmpty()) {
+                        isMoreHappyHourAvailable = false
+                    } else {
+                        targetPage = dto.page.toString()
+                        dto.hhVideos.forEach { videoDto ->
+                            happyHourDatabase.getDao().insert(videoDto.toHappyHourVideo().toHappyHourVideoEntity())
+                        }
+                    }
+                }
+            }
+            syncProgress.update { false }
+        }
+    }
+
+    fun happyHoursFlow(): Flow<List<HappyHourVideo>> {
+        return happyHourDatabase.getDao().getAllAsFlow().map { it.toHappyHourVideoList() }
+    }
+
     private suspend fun getHappyHoursByPage(page: String, dispatcher: CoroutineDispatcher = Dispatchers.IO): HappyHourPageDto {
         return withContext(dispatcher) {
             happyHourHttpClient.loadHappyHourPage(page)
         }
     }
     val syncProgress = MutableStateFlow(false)
-
-    suspend fun sync() {
-        syncProgress.update { true }
-        val cachedLatestHappyHourPartNumber = happyHourDatabase.getDao().latest() ?: 0
-        val syncedLatestHappyHourPartNumber = happyHourHttpClient.loadHappyHourPage("").hhVideos.maxBy { it.part ?: 0 }.part
-        if(cachedLatestHappyHourPartNumber < (syncedLatestHappyHourPartNumber ?: 0)) {
-            var targetPage = ""
-            var isMoreHappyHourAvailable = true
-            while (isMoreHappyHourAvailable) {
-                val dto = getHappyHoursByPage(targetPage)
-                if(dto.hhVideos.isEmpty()) {
-                    isMoreHappyHourAvailable = false
-                } else {
-                    targetPage = dto.page.toString()
-                    dto.hhVideos.forEach { videoDto ->
-                        happyHourDatabase.getDao().insert(videoDto.toHappyHourVideo().toHappyHourVideoEntity())
-                    }
-                }
-            }
-        }
-        syncProgress.update { false }
-
-    }
-
-    fun happyHoursFlow(): Flow<List<HappyHourVideo>> {
-        return happyHourDatabase.getDao().getAllAsFlow().map { it.toHappyHourVideoList() }
-        /*
-        this should only retreive data from localcache(database)
-         */
-    }
 }

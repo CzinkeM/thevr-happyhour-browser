@@ -1,7 +1,7 @@
 package domain.mapper
 
-import data.HappyHourVideoChapterEntity
-import data.HappyHourVideoEntity
+import data.entity.HappyHourVideoChapterEntity
+import data.entity.HappyHourVideoEntity
 import domain.HappyHourTitleFormatter
 import domain.isNullOrMinus
 import domain.model.HappyHourChapter

@@ -14,9 +14,7 @@ import kotlinx.coroutines.launch
 class HappyHourDetailScreenModel(
     repository: HappyHourRepository,
 ): ScreenModel {
-
-    //FIXME: happyhours list should be read from some kind of cache.
-    private var allHappyHours = repository.syncHappyHours().stateIn(screenModelScope, SharingStarted.Eagerly, emptyList())
+    private var allHappyHours = repository.happyHoursFlow().stateIn(screenModelScope, SharingStarted.Eagerly, emptyList())
     private val selectedHappyHourId = MutableStateFlow<Int?>(null)
 
     val selectedHappyHour = combine(allHappyHours, selectedHappyHourId) { happyHours, selectedHappyHourId ->
@@ -47,7 +45,6 @@ class HappyHourDetailScreenModel(
     }
 
     override fun onDispose() {
-        println("Dispose runs")
         screenModelScope.launch {
             selectedHappyHourId.update { null }
         }
