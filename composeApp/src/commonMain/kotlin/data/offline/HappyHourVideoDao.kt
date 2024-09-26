@@ -15,7 +15,7 @@ interface HappyHourVideoDao {
     @Query("SELECT MAX(part) FROM HappyHourVideoEntity")
     suspend fun latest(): Int?
 
-    @Query("SELECT * FROM HappyHourVideoEntity")
+    @Query("SELECT * FROM HappyHourVideoEntity ORDER BY part DESC")
     fun getAllAsFlow(): Flow<List<HappyHourVideoEntity>>
 
     @Query("SELECT * FROM HappyHourVideoEntity")
