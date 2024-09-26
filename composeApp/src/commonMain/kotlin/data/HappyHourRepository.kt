@@ -21,8 +21,8 @@ class HappyHourRepository(
     private val happyHourDatabase: HappyHourDatabase,
     private val preferencesManager: PreferencesManager,
 ) {
-    suspend fun sync(dispatcher: CoroutineDispatcher = Dispatchers.IO) {
-        withContext(dispatcher) {
+    suspend fun sync() {
+        try {
             syncingInProgress.update { true }
             val cachedLatestHappyHourPartNumber = happyHourDatabase.getDao().latest() ?: 0
             val syncedLatestHappyHourPartNumber =
@@ -42,6 +42,7 @@ class HappyHourRepository(
                     }
                 }
             }
+        }finally {
             syncingInProgress.update { false }
         }
     }
