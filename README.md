@@ -47,7 +47,7 @@ Clone this repository and compile this project for your desired platform.
 
 For android, you'll need [Git](https://git-scm.com) and [Android Studio](https://developer.android.com/studio) installed on your computer.
 
-For iOS...
+### [Here is the iOS Version](https://github.com/kyletaylor94/TheVR-HappyHour-browser-iOS?tab=readme-ov-file)
 
 ## 📝 License
 
