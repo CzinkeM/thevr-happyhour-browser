@@ -1,5 +1,7 @@
 package presentation.happyHourSearchResultScreen
 
+import androidx.compose.ui.text.intl.Locale
+import androidx.compose.ui.text.toLowerCase
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import data.HappyHourRepository
@@ -72,7 +74,7 @@ class HappyHourSearchResultScreenModel(
         val allHappyHours = repository.happyHours()
         _searchResultHappyHourList.update {
             allHappyHours
-                .filter { video -> video.searchString.contains(searchedText) }
+                .filter { video -> video.searchString.contains(searchedText.toLowerCase(Locale.current)) }
         }
     }
 }
